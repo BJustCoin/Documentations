@@ -1,5 +1,5 @@
 # Bjustcoin
-[Git Source](https://github.com/BJustCoin-creator/BJC/blob/afa8ae44b1c3660a047e437225fc640502d221b6/src/Bjustcoin.sol)
+[Git Source](https://github.com/BJustCoin/BJustCoin/blob/a2ea42a40685967d519dc58bec22747464dbc3c6/src/Bjustcoin.sol)
 
 **Inherits:**
 ERC20, Ownable
