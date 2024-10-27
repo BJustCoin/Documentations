@@ -1,8 +1,11 @@
 # Bjustcoin
-[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/Bjustcoin.sol)
+[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/flatten/ICOManager_flatten.sol)
 
 **Inherits:**
 [ERC20](/src/flatten/ICOManager_flatten.sol/abstract.ERC20.md), [Ownable](/src/flatten/ICOManager_flatten.sol/abstract.Ownable.md)
+
+**Author:**
+Code Tesla Labs
 
 Token ICO
 
@@ -52,9 +55,9 @@ function blacklist(address _address, bool _isBlacklisting) external onlyOwner;
 
 ### burn
 
-burn BJustCoin. It is used if, at the end of the ICO, there are unsold tokens allocated for all stages of the ICO
+burn BJustCoin
 
-*burn BJustCoin. It is used if, at the end of the ICO, there are unsold tokens allocated for all stages of the ICO*
+*burn BJustCoin*
 
 
 ```solidity
@@ -69,7 +72,9 @@ function burn(uint256 amount) external onlyOwner;
 
 ### _update
 
-*moving tokens between wallets. If one of the participants is blacklisted, the Blacklisted error is called*
+token transfer
+
+*token transfer*
 
 
 ```solidity

@@ -1,5 +1,5 @@
 # ICOManager
-[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/ICOManager.sol)
+[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/flatten/ICOManager_flatten.sol)
 
 **Inherits:**
 [Ownable](/src/flatten/ICOManager_flatten.sol/abstract.Ownable.md)
@@ -28,8 +28,6 @@ uint256 private constant MONTH = 365 days / 12;
 
 
 ### DEFAULT_RATE
-the default course value, in case the oracle returned an error
-
 
 ```solidity
 uint256 private constant DEFAULT_RATE = 257673;
@@ -504,7 +502,7 @@ function getTokenomicType() public view returns (TokenomicType);
 
 get rate eth/usd
 
-*get rate eth/usd from oracle. if the oracle did not return the value of the exchange rate, the default value is returned*
+*get rate eth/usd from oracle*
 
 
 ```solidity

@@ -1,5 +1,7 @@
 # ICOStage
-[Git Source](https://github.com/BJustCoin/BJustCoin/blob/a2ea42a40685967d519dc58bec22747464dbc3c6/src/ICOManager.sol)
+[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/ICOManager.sol)
+
+enumeration of the stage ICO
 
 
 ```solidity

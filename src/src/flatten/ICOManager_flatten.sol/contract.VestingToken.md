@@ -1,10 +1,13 @@
 # VestingToken
-[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/VestingToken.sol)
+[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/flatten/ICOManager_flatten.sol)
 
 **Inherits:**
 [IVestingToken](/src/flatten/ICOManager_flatten.sol/interface.IVestingToken.md), [Initializable](/src/flatten/ICOManager_flatten.sol/abstract.Initializable.md), [ERC20Upgradeable](/src/flatten/ICOManager_flatten.sol/abstract.ERC20Upgradeable.md)
 
-Responsible for the logic of blocking/unblocking funds
+Отвечает за логику блокировки/разблокировки средств
+
+*Код предоставлен исключительно в ознакомительных целях и не протестирован
+Из контракта убрано все лишнее, включая некоторые проверки, геттеры/сеттеры и события*
 
 
 ## State Variables
@@ -88,9 +91,9 @@ modifier onlyVestingManager();
 
 ### initialize
 
-initialization
+Так как это прокси, нужно выполнить инициализацию
 
-*It is created and initialized only by the VestingManager contract*
+*Создается и инициализируется только контрактом VestingManager*
 
 
 ```solidity
@@ -98,15 +101,6 @@ function initialize(string calldata _name, string calldata _symbol, address mint
     public
     initializer;
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`_name`|`string`| name vesting token|
-|`_symbol`|`string`| symbol vesting token|
-|`minter`|`address`| address the address that owns the right to mint tokens|
-|`baseToken`|`address`| address base token.|
-
 
 ### getMinter
 
@@ -117,9 +111,9 @@ function getMinter() public view returns (address);
 
 ### setVestingSchedule
 
-The schedule is set by the VestingManager contract
+Установка расписания также выполняется контрактом VestingManager
 
-*The schedule is set by the VestingManager contract*
+*Здесь важно проверить что расписание было передано корректное*
 
 
 ```solidity
@@ -127,19 +121,8 @@ function setVestingSchedule(uint256 startTime, uint256 cliff, uint8 initialUnloc
     external
     onlyVestingManager;
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`startTime`|`uint256`| start time|
-|`cliff`|`uint256`| cliff time|
-|`initialUnlock`|`uint8`| unlocked tokens after cliff time|
-|`schedule`|`Schedule[]`| task scheduler|
-
 
 ### _checkVestingSchedule
-
-*check vesting tasck schedule*
 
 
 ```solidity
@@ -147,39 +130,19 @@ function _checkVestingSchedule(uint256 startTime, uint256 cliff, Schedule[] call
     private
     view;
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`startTime`|`uint256`| start time|
-|`cliff`|`uint256`| cliff time|
-|`schedule`|`Schedule[]`| task shedule|
-|`scheduleLength`|`uint256`| shedule lenght|
-
 
 ### mint
 
-we are writing off base token and mint vestingToken
-
-*we are writing off base token and mint vestingToken*
+Списываем токен который будем блокировать и минтим share-токен
 
 
 ```solidity
 function mint(address to, uint256 amount) external onlyMinter;
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`to`|`address`| address to|
-|`amount`|`uint256`| count token|
-
 
 ### claim
 
-Burt vestingTokens and transfer the unlocked basic tokens to the beneficiary
-
-*Burt vestingTokens and transfer the unlocked basic tokens to the beneficiary*
+Сжигаем share-токен и переводим бенефициару разблокированные базовые токены
 
 
 ```solidity
@@ -188,156 +151,66 @@ function claim() external;
 
 ### getVestingSchedule
 
-get vesting structure
-
-*get vesting structure*
-
 
 ```solidity
 function getVestingSchedule() public view returns (Vesting memory);
 ```
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`<none>`|`Vesting`|Vesting  structure|
-
 
 ### unlockedSupply
-
-number of unlocked tokens
-
-*number of unlocked tokens*
 
 
 ```solidity
 function unlockedSupply() external view returns (uint256);
 ```
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`<none>`|`uint256`|uint256  count tokens|
-
 
 ### lockedSupply
-
-number of locked tokens
-
-*number of locked tokens*
 
 
 ```solidity
 function lockedSupply() external view returns (uint256);
 ```
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`<none>`|`uint256`|uint256  count tokens|
-
 
 ### availableBalanceOf
-
-the wallet balance available for withdrawal
-
-*the wallet balance available for withdrawal*
 
 
 ```solidity
 function availableBalanceOf(address account) public view returns (uint256 releasable);
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`account`|`address`| wallet address|
-
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`releasable`|`uint256`| count tokens|
-
 
 ### _unlockedOf
-
-*determining the number of unlocked tokens*
 
 
 ```solidity
 function _unlockedOf(address account) private view returns (uint256);
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`account`|`address`| wallet address|
-
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`<none>`|`uint256`|uint256  count tokens|
-
 
 ### _totalUnlocked
-
-*all unlocked tokens*
 
 
 ```solidity
 function _totalUnlocked() private view returns (uint256);
 ```
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`<none>`|`uint256`|uint256  count tokens|
-
 
 ### _computeUnlocked
 
-The main function for calculating unlocked tokens
+Основная функция для расчета разблокированных токенов
 
-*It checks how many full periods have passed and how much time has passed since the last full period.*
+*Проверяется сколько прошло полных периодов и сколько времени прошло
+после последнего полного периода.*
 
 
 ```solidity
 function _computeUnlocked(uint256 lockedTokens, uint256 time) private view returns (uint256 unlockedTokens);
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`lockedTokens`|`uint256`| locked tokens|
-|`time`|`uint256`| time elapsed since the beginning of the vesting|
-
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`unlockedTokens`|`uint256`| unlocked tokens|
-
 
 ### _update
 
-Available only mint and claim
-
-*Available only mint and claim*
+Трансферить токены нельзя, только минтить и сжигать
 
 
 ```solidity
 function _update(address from, address to, uint256 amount) internal virtual override;
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`from`|`address`| address from|
-|`to`|`address`| addres to|
-|`amount`|`uint256`| count tokens|
-
 
 ## Events
 ### MintTokens

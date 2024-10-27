@@ -1,10 +1,11 @@
 # VestingManager
-[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/VestingManager.sol)
+[Git Source](https://github.com/BJustCoin/BJustCoin/blob/e7038856495a90d82d025f98c39648e6605afbeb/src/flatten/VestingManager_flattened.sol)
 
 **Inherits:**
 [Ownable](/src/flatten/ICOManager_flatten.sol/abstract.Ownable.md)
 
-The main task of a smart contract is to create instances of vestingTokens and set a vesting schedule on them
+Основная задача смарт-контракта создавать экземпляры share-токенов
+и устанавливать на них расписание вестинга
 
 **
 
@@ -27,11 +28,11 @@ constructor(address implementation) Ownable(msg.sender);
 
 ### createVesting
 
-The main function for creating an instance of a vestingTokens
-setting the name and symbol
-We specify the address of the token that will be blocked for vesting
-We specify the address that will be able to use share tokens (for example, a sales contract)
-Passing the schedule
+Основная функция для создания экземпляра share-токена
+Т.к. это создание ERC20 - задаем name и symbol
+Указываем адрес токена который будет блокироваться под вестинг
+Указываем адрес который сможет минтить share-токены (к примеру контракт продаж)
+Передаем расписание
 
 
 ```solidity
@@ -46,29 +47,12 @@ function createVesting(
 
 ### _createVestingToken
 
-*create new token*
-
 
 ```solidity
 function _createVestingToken(string calldata name, string calldata symbol, address minter, address baseToken)
     private
     returns (address vestingToken);
 ```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`name`|`string`| name token|
-|`symbol`|`string`|symvol token|
-|`minter`|`address`| the address that owns the right to mint new token|
-|`baseToken`|`address`| base token|
-
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`vestingToken`|`address`| address new token|
-
 
 ## Events
 ### CreateVestingToken

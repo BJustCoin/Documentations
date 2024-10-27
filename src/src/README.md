@@ -1,6 +1,7 @@
 
 
 # Contents
+- [flatten](/src/flatten)
 - [Bjustcoin](Bjustcoin.sol/contract.Bjustcoin.md)
 - [TokenomicType](ICOManager.sol/enum.TokenomicType.md)
 - [ICOStage](ICOManager.sol/enum.ICOStage.md)
